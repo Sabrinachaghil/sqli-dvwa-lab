@@ -62,6 +62,12 @@ sqlmap -u "http://$TARGET/dvwa/login.php" \
 ```
 Also tested each parameter individually using `-p username` / `-p password` to isolate and document which field was vulnerable.
 
+Result: sqlmap ran a full suite of detection techniques (boolean-based, error-based, UNION-based, time-based, stacked queries) with no success — the login POST parameter was confirmed not injectable:
+
+[CRITICAL] all tested parameters do not appear to be injectable.
+
+This negative result is expected and was documented as part of the assessment: unlike the sqli/ endpoint, DVWA's login mechanism is not designed to be vulnerable. Testing and recording a non-vulnerable endpoint is as much a part of a thorough assessment as confirming an exploitable one.
+
 ## 🔑 Key sqlmap Options Used
 | Option | Purpose |
 |---|---|
@@ -72,9 +78,6 @@ Also tested each parameter individually using `-p username` / `-p password` to i
 | `--dbs` / `-D` / `-T` / `--columns` / `--dump` | Database enumeration & extraction |
 | `-p` | Target a specific parameter |
 | `--banner --current-user --current-db --is-dba` | Server & privilege fingerprinting |
-
-## 📸 Screenshots
-*(add screenshots here: DVWA login, sqlmap detection output, --dbs results, dumped table)*
 
 ## 🧠 Key Takeaways
 - Practical understanding of the full SQL injection kill chain: detection → enumeration → extraction
